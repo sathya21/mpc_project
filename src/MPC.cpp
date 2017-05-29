@@ -11,7 +11,7 @@ double dt = 0.05;
 
 double ref_cte = 0;
 double ref_epsi = 0;
-double ref_v = 50;
+double ref_v = 30;
 
 // This value assumes the model presented in the classroom is used.
 //
@@ -113,7 +113,7 @@ public:
 			AD<double> delta0 = vars[delta_start + i];
 			AD<double> a0 = vars[a_start + i];
 
-			AD<double> f0 = coeffs[0] + coeffs[1] * x0;
+			AD<double> f0 = coeffs[0] + coeffs[1] * x0  ;
 			AD<double> psides0 = CppAD::atan(coeffs[1]);
 
 			// Here's `x` to get you started.
@@ -251,7 +251,6 @@ vector<double> MPC::Solve(Eigen::VectorXd x0, Eigen::VectorXd coeffs) {
 	// place to return solution
 	CppAD::ipopt::solve_result < Dvector > solution;
 
-	cout << "before ipopt";
 
 	// solve the problem
 	CppAD::ipopt::solve<Dvector, FG_eval>(options, vars, vars_lowerbound,

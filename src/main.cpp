@@ -11,12 +11,15 @@
 
 // for convenience
 using json = nlohmann::json;
+const double Lf = 2.67;
+
 
 // For converting back and forth between radians and degrees.
 constexpr double pi() {
 	return M_PI;
 }
 double deg2rad(double x) {
+	cout << "deg2rad" << x * pi() / 180;
 	return x * pi() / 180;
 }
 double rad2deg(double x) {
@@ -98,7 +101,8 @@ int main() {
 							double py = j[1]["y"];
 							double psi = j[1]["psi"];
 							double v = j[1]["speed"];
-							double steer_value_old = j[1]["steering_angle"];
+							double steer_value_old = (j[1]["steering_angle"]);
+							cout << "steer value old" << steer_value_old<< endl;
 							double thr = j[1]["throttle"];
 							vector<double> car_ptsx(ptsx.size());
 							vector<double> car_ptsy(ptsy.size());
@@ -127,6 +131,7 @@ int main() {
 
 							double cte = polyeval(coeffs, 0);
 							double epsi = -atan( coeffs[1] );
+
 							cout << "cte" << cte <<endl;
 
 							state << 0, 0, 0, v, cte, epsi, -steer_value_old, thr;
@@ -146,6 +151,9 @@ int main() {
 
 							double steer_value = vars[14];
 							cout << "steer value" << steer_value << endl;
+							steer_value = vars[14];
+							cout << "steer value post" << steer_value << endl;
+
 							double throttle_value = vars[15];
 
 							json msgJson;
